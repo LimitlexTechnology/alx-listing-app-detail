@@ -1,5 +1,5 @@
 ﻿import React, { useState } from "react";
-import { PropertyProps } from "../../interfaces";
+import { PropertyProps } from "@/interfaces/index";
 import BookingSection from "./BookingSection";
 import ReviewSection from "./ReviewSection";
 
@@ -13,7 +13,7 @@ const PropertyDetail: React.FC<{ property: PropertyProps }> = ({ property }) => 
       <header>
         <h1 className="text-3xl font-bold">{property.name.replace(/-/g, " ")}</h1>
         <div className="flex items-center space-x-4 mt-2 text-sm text-gray-600">
-          <span className="text-yellow-500">{property.rating} </span>
+          <span className="text-yellow-500">★ {property.rating}</span>
           <span>
             {property.address.city}, {property.address.country}
           </span>
@@ -68,13 +68,17 @@ const PropertyDetail: React.FC<{ property: PropertyProps }> = ({ property }) => 
               {active === "Host" && (
                 <div>
                   <h2 className="text-xl font-semibold">About the host</h2>
-                  <div className="flex items-center mt-3">
-                    <img src={property.host?.avatar} alt={property.host?.name} className="w-12 h-12 rounded-full mr-3" />
-                    <div>
-                      <p className="font-bold">{property.host?.name}</p>
-                      <p className="text-sm text-gray-600">Superhost</p>
+                  {property.host && (
+                    <div className="flex items-center mt-3">
+                      {property.host.avatar && (
+                        <img src={property.host.avatar} alt={property.host.name} className="w-12 h-12 rounded-full mr-3" />
+                      )}
+                      <div>
+                        <p className="font-bold">{property.host.name}</p>
+                        <p className="text-sm text-gray-600">Superhost</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
